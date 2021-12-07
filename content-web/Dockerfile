@@ -1,6 +1,8 @@
 FROM node:dubnium-alpine AS base
 RUN apk -U add curl
 WORKDIR /usr/src/app
+
+ENV CONTENT_API_URL http://localhost:3001
 EXPOSE 3000
 
 FROM node:dubnium AS build
@@ -19,4 +21,4 @@ RUN ng build
 FROM base as final
 WORKDIR /usr/src/app
 COPY --from=build /usr/src/app .
-CMD [ "node", "app.js" ]
+CMD [ "node", "app.js" ] 
